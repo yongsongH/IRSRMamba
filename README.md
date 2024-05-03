@@ -1,2 +1,2 @@
 # IRSRMamba
-Official PyTorch implementation of the paper nfrared Image Super-Resolution via Mamba-based Wavelet Transform Feature Modulation Model.
+Official PyTorch implementation of the paper Infrared Image Super-Resolution via Mamba-based Wavelet Transform Feature Modulation Model.
