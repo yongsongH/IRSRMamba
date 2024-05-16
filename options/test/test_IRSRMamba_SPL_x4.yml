@@ -1,0 +1,72 @@
+# general settings
+name: 0515_SPL_IRSRMamba_Final_x4
+model_type: MambaIRModel
+scale: 4
+num_gpu: auto
+manual_seed: 10
+# python basicsr/test.py -opt options/test/test_IRSRMamba_SPL_x4.yml
+datasets:
+  test_1:  # the 1st test dataset
+    name: results-A
+    type: PairedImageDataset
+    dataroot_gt: /home/usrs/hys/0010_Dataset/2024_0401_SPL/test/results-A/HR
+    dataroot_lq: /home/usrs/hys/0010_Dataset/2024_0401_SPL/test/results-A/LR_bicubic/X4
+    filename_tmpl: '{}x4'
+    io_backend:
+      type: disk
+  test_2:  
+    name: results-C
+    type: PairedImageDataset
+    dataroot_gt: /home/usrs/hys/0010_Dataset/2024_0401_SPL/test/results-C/HR
+    dataroot_lq: /home/usrs/hys/0010_Dataset/2024_0401_SPL/test/results-C/LR_bicubic/X4
+    filename_tmpl: '{}x4'
+    io_backend:
+      type: disk
+
+
+
+
+
+# network structures
+network_g:
+  type: IRSRMamba
+  upscale: 4
+  in_chans: 3
+  img_size: 64
+  window_size: 8
+  img_range: 1.
+  d_state: 16
+  depths: [6, 6, 6, 6, 6, 6]
+  embed_dim: 180
+  mlp_ratio: 2
+  upsampler: 'pixelshuffle'
+  resi_connection: '1conv'
+
+# path
+path:
+  pretrain_network_g: /home/usrs/hys/24-03.MambaIR/results/0510_SPL_IRSRMamba_Final_x4/IRSRMamba_final_x4.pth
+  strict_load_g: true
+
+# validation settings
+val:
+  save_img: true
+  suffix: ~  # add suffix to saved images, if None, use exp name
+
+  metrics:
+    psnr: # metric name, can be arbitrary
+      type: calculate_psnr
+      crop_border: 4
+      better: higher
+      test_y_channel: true
+      
+    mse: # metric name, can be arbitrary
+      type: calculate_mse
+      crop_border: 4
+      better: lower
+      test_y_channel: true
+
+    ssim: # metric name, can be arbitrary
+      type: calculate_ssim
+      crop_border: 4
+      test_y_channel: true
+
