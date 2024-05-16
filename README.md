@@ -80,7 +80,7 @@ Pre-trained models can be downloaded from this [link](https://figshare.com/artic
 
 ## Evaluation
 
-please check the [log file](https://github.com/yongsongH/Infrared-Image_PSRGAN/blob/master/results/results-A_75000_G/results-A_75000_G.log) for more information about the settings.
+please check the [log file](https://github.com/yongsongH/IRSRMamba/blob/main/results/0515_SPL_IRSRMamba_Final_x2/test_0515_SPL_IRSRMamba_Final_x2_20240516_171818.log) for more information about the settings.
 
     
 ***
