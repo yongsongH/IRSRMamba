@@ -1,10 +1,10 @@
 # general settings
-name: 0515_SPL_IRSRMamba_Final_x4
+name: 0212_TGRS_IRSRMamba_Final_x4
 model_type: MambaIRModel
 scale: 4
 num_gpu: auto
 manual_seed: 10
-# python basicsr/test.py -opt options/test/test_IRSRMamba_SPL_x4.yml
+# python basicsr/test.py -opt options/test/IRSRMamba/test_IRSRMamba_TGRS_x4.yml
 datasets:
   test_1:  # the 1st test dataset
     name: results-A
@@ -22,6 +22,14 @@ datasets:
     filename_tmpl: '{}x4'
     io_backend:
       type: disk
+  test_3:
+    name: CVC15
+    type: PairedImageDataset
+    dataroot_gt: /home/usrs/hys/0010_Dataset/2024_0401_SPL/test/CVC10/CVC15_HR
+    dataroot_lq: /home/usrs/hys/0010_Dataset/2024_0401_SPL/test/CVC10/CVC15_LR/X4
+    filename_tmpl: '{}'
+    io_backend:
+      type: disk
 
 
 
@@ -33,10 +41,9 @@ network_g:
   upscale: 4
   in_chans: 3
   img_size: 64
-  window_size: 8
   img_range: 1.
   d_state: 16
-  depths: [6, 6, 6, 6, 6, 6]
+  depths: [8, 8, 8, 8, 8, 8]
   embed_dim: 180
   mlp_ratio: 2
   upsampler: 'pixelshuffle'
@@ -44,13 +51,13 @@ network_g:
 
 # path
 path:
-  pretrain_network_g: /home/usrs/hys/24-03.MambaIR/results/0510_SPL_IRSRMamba_Final_x4/IRSRMamba_final_x4.pth
+  pretrain_network_g: /home/usrs/hys/24-03.IRSRMamba/experiments/AA_model/x4_net_g.pth
   strict_load_g: true
 
 # validation settings
 val:
   save_img: true
-  suffix: ~  # add suffix to saved images, if None, use exp name
+  suffix: None  # add suffix to saved images, if None, use exp name
 
   metrics:
     psnr: # metric name, can be arbitrary
