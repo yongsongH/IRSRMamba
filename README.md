@@ -69,4 +69,13 @@ If you meet any problems, please describe them and [contact](https://hyongsong.w
 
 ## Acknowledgement
 This work is under peer review.
-The updated manuscript and training dataset will be released after the paper is accepted.
+The updated manuscript and training dataset will be released after the paper is accepted. 
+
+
+---
+
+## Legal Action and Patent Clause
+This project is licensed under the **Apache License, Version 2.0**.
+A copy of the Apache License, Version 2.0, is included in the `LICENSE` file in this repository. You may also obtain a copy of the License at [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
+**Any violation of the terms of the Apache License, Version 2.0, may result in legal action and liability for damages.**
