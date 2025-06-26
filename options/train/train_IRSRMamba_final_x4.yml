@@ -1,14 +1,12 @@
 # general settings for image SR training
-name: IRSRMambaIR_final_x4_0421
+name: IRSRMamba_tgrs_pre_x4_0407
 model_type: MambaIRModel
 scale: 4
 num_gpu: auto
 manual_seed: 3407
-# nohup python basicsr/train.py -opt options/train/train_IRSRMamba_final_x4.yml & --debug
 # dataset and data loader settings
 datasets:
   train:
-
     name: M3FD
     type: PairedImageDataset
     dataroot_gt: /home/usrs/hys/0010_Dataset/M3FD_Fusion_SR/M3FD_Fusion_train/lr/HR
@@ -17,15 +15,16 @@ datasets:
     io_backend:
       type: disk
 
+
     gt_size: 64
     use_hflip: true
     use_rot: true
 
     # data loader
     use_shuffle: true
-    num_worker_per_gpu: 8 # 16
-    batch_size_per_gpu: 128  # 64
-    dataset_enlarge_ratio: 100
+    num_worker_per_gpu: 4 # 16
+    batch_size_per_gpu: 32  # 64
+    dataset_enlarge_ratio: 10
     prefetch_mode: ~
 
 
@@ -46,19 +45,27 @@ datasets:
     filename_tmpl: '{}x4'
     io_backend:
       type: disk
+
+  val_3:
+    name: CVC15
+    type: PairedImageDataset
+    dataroot_gt: /home/usrs/hys/0010_Dataset/2024_0401_SPL/test/CVC10/CVC15_HR
+    dataroot_lq: /home/usrs/hys/0010_Dataset/2024_0401_SPL/test/CVC10/CVC15_LR/X4
+    filename_tmpl: '{}'
+    io_backend:
+      type: disk
       
 
-
+      
 # network structures
 network_g:
   type: IRSRMamba
   upscale: 4
   in_chans: 3
   img_size: 64
-  window_size: 8
   img_range: 1.
   d_state: 16
-  depths: [6, 6, 6, 6, 6, 6]
+  depths: [8, 8, 8, 8, 8, 8]
   embed_dim: 180
   mlp_ratio: 2
   upsampler: 'pixelshuffle'
@@ -66,8 +73,7 @@ network_g:
 
 # path
 path:
-  # for classic SRx4, we use the x2 Model to initialize and halve the training iteration and lr for fast training
-  pretrain_network_g: ~
+  pretrain_network_g: /home/usrs/hys/24-03.IRSRMamba/experiments/IRSRMamba_tgrs_pre_x4/net_g_250000.pth
   strict_load_g: false
   resume_state: ~
 
@@ -77,7 +83,7 @@ train:
   optim_g:
     type: Adam
     # lr: !!float 2e-4
-    lr: !!float 1e-5
+    lr: !!float 2e-4
     weight_decay: 0
     betas: [0.9, 0.99]
 
@@ -96,6 +102,16 @@ train:
     type: L1Loss
     loss_weight: 1.0
     reduction: mean
+
+  # pixel_opt:
+  #   type: SSM_L1Loss           
+  #   weights: [1.0]             
+  #   lambda_weight: 1.0         
+  #   reduction: mean            
+  #   aggregate_fn: mean  
+
+
+
 # validation settings
 val:
   val_freq: !!float 5e3
@@ -118,6 +134,11 @@ val:
       type: calculate_ssim
       crop_border: 4
       test_y_channel: true
+    
+    niqe:
+      type: calculate_niqe
+      crop_border: 4
+      better: lower  # the lower, the better
 
 
 
