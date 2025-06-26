@@ -51,9 +51,19 @@ Pre-trained models can be downloaded from this [link](https://figshare.com/artic
 
 please check the [log file](https://github.com/yongsongH/IRSRMamba/blob/main/results/0515_SPL_IRSRMamba_Final_x2/test_0515_SPL_IRSRMamba_Final_x2_20240516_171818.log) for more information about the settings.
 
+### Training
+- Run the following commands for training:
+```
+python basicsr/train.py -opt options/train/train_IRSRMamba_final_x2.yml
+```
+```
+python basicsr/train.py -opt options/train/train_IRSRMamba_final_x4.yml
+```
     
-***
-Run 
+### Testing
+- Download the pretrained models.
+- Download the testing dataset.
+- Run the following commands:
 ```
   python basicsr/test.py -opt options/test/test_IRSRMamba_x4.yml
 ```
