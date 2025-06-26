@@ -1,6 +1,9 @@
 # [IRSRMamba](http://arxiv.org/abs/2405.09873)
 Official PyTorch implementation of the paper [IRSRMamba: Infrared Image Super-Resolution via Mamba-based Wavelet Transform Feature Modulation Model.](http://arxiv.org/abs/2405.09873)
 
+#### 🚩Accepted by IEEE TGRS
+
+*I would like to express our sincere gratitude to all the authors whose work has contributed to this project. Their insights and contributions have been invaluable. We are also deeply thankful for the positive feedback and constructive assistance received from the editors and reviewers. Their expertise and thoughtful suggestions have significantly improved the quality and clarity of this work.*
 
 ## Introduction
 
