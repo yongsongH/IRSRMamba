@@ -3,7 +3,6 @@ Official PyTorch implementation of the paper [IRSRMamba: Infrared Image Super-Re
 
 #### 🚩Accepted by IEEE TGRS
 
-*I would like to express my sincere gratitude to all the authors whose work has contributed to this project. Their insights and contributions have been invaluable. I am also deeply thankful for the positive feedback and constructive assistance received from the editors and reviewers. Their expertise and thoughtful suggestions have significantly improved the quality and clarity of this work.*
 
 ## Introduction
 
@@ -81,8 +80,7 @@ If you meet any problems, please describe them and [contact](https://hyongsong.w
 **Impolite or anonymous emails are not welcome. There may be some difficulties for me to respond to the email without self-introduce. Thank you for understanding.**
 
 ## Acknowledgement
-This work is under peer review.
-The updated manuscript and training dataset will be released after the paper is accepted. 
+*I would like to express my sincere gratitude to all the authors whose work has contributed to this project. Their insights and contributions have been invaluable. I am also deeply thankful for the positive feedback and constructive assistance received from the editors and reviewers. Their expertise and thoughtful suggestions have significantly improved the quality and clarity of this work.*
 
 
 ---
