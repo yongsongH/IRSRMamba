@@ -1,20 +1,11 @@
-# general settings for image SR training
-name: IRSRMamba_x2_0426
+name: IRSRMamba_tgrs_x2_0407
 model_type: MambaIRModel
 scale: 2
 num_gpu: auto
 manual_seed: 3407
-# nohup python basicsr/train.py -opt options/train/train_IRSRMamba_final_x2.yml & --debug
 # dataset and data loader settings
 datasets:
   train:
-    # name: DIV2K
-    # type: PairedImageDataset
-    # dataroot_gt: /home/usrs/hys/0010_Dataset/DIV2K/DIV2K_train_HR
-    # dataroot_lq: /home/usrs/hys/0010_Dataset/DIV2K/DIV2K_train_LR_bicubic/X2
-    # filename_tmpl: '{}x2'
-    # io_backend:
-    #   type: disk
     name: M3FD
     type: PairedImageDataset
     dataroot_gt: /home/usrs/hys/0010_Dataset/M3FD_Fusion_SR/M3FD_Fusion_train/lr/HR
@@ -23,6 +14,7 @@ datasets:
     io_backend:
       type: disk
 
+
     gt_size: 32
     use_hflip: true
     use_rot: true
@@ -30,11 +22,11 @@ datasets:
     # data loader
     use_shuffle: true
     num_worker_per_gpu: 4
-    batch_size_per_gpu: 128
-    dataset_enlarge_ratio: 100
+    batch_size_per_gpu: 32
+    dataset_enlarge_ratio: 10
     prefetch_mode: ~
 
-  val_1:
+val_1:
     name: results-A
     type: PairedImageDataset
     dataroot_gt: /home/usrs/hys/0010_Dataset/2024_0401_SPL/test/results-A/HR
@@ -51,9 +43,15 @@ datasets:
     filename_tmpl: '{}x2'
     io_backend:
       type: disk
-      
-      
-      
+
+  val_3:
+    name: CVC10
+    type: PairedImageDataset
+    dataroot_gt: /home/usrs/hys/0010_Dataset/2024_0401_SPL/test/CVC10/CVC15_HR
+    dataroot_lq: /home/usrs/hys/0010_Dataset/2024_0401_SPL/test/CVC10/CVC15_LR/X2
+    filename_tmpl: '{}'
+    io_backend:
+      type: disk
       
 
 # network structures
@@ -64,11 +62,12 @@ network_g:
   img_size: 64
   img_range: 1.
   d_state: 16
-  depths: [6, 6, 6, 6, 6, 6]
+  depths: [8, 8, 8, 8, 8, 8]
   embed_dim: 180
   mlp_ratio: 2
   upsampler: 'pixelshuffle'
   resi_connection: '1conv'
+
 
 # path
 path:
@@ -81,7 +80,7 @@ train:
   optim_g:
     type: Adam
     #lr: !!float 2e-4
-    lr: !!float 1e-5
+    lr: !!float 2e-4
     weight_decay: 0
     betas: [0.9, 0.99]
 
@@ -99,6 +98,14 @@ train:
     type: L1Loss
     loss_weight: 1.0
     reduction: mean
+
+  # pixel_opt:
+  #   type: SSM_L1Loss           
+  #   weights: [1.0]             
+  #   lambda_weight: 1.0         
+  #   reduction: mean            
+  #   aggregate_fn: mean  
+
 # validation settings
 val:
   val_freq: !!float 5e3
@@ -122,6 +129,10 @@ val:
       crop_border: 2
       test_y_channel: true
 
+    niqe:
+      type: calculate_niqe
+      crop_border: 2
+      better: lower  # the lower, the better
 
 
 
@@ -129,7 +140,7 @@ val:
 # logging settings
 logger:
   print_freq: 200
-  save_checkpoint_freq: !!float 1e3
+  save_checkpoint_freq: !!float 1e4
   use_tb_logger: true
   wandb:
     project: ~
