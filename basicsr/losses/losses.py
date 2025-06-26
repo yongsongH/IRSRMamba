@@ -1,15 +1,14 @@
-import math
 import torch
-from torch import autograd as autograd
 from torch import nn as nn
 from torch.nn import functional as F
+from torchvision.transforms import functional as TF
 
-# from basicsr.archs.vgg_arch import VGGFeatureExtractor
+from basicsr.archs.vgg_arch import VGGFeatureExtractor
 from basicsr.utils.registry import LOSS_REGISTRY
 from .loss_util import weighted_loss
+from basicsr.archs.irsrmamba_arch import SS2D as SS2D
 
 _reduction_modes = ['none', 'mean', 'sum']
-
 
 @weighted_loss
 def l1_loss(pred, target):
@@ -490,3 +489,84 @@ class GANFeatLoss(nn.Module):
                 unweighted_loss = self.loss_op(pred_fake[i][j], pred_real[i][j].detach())
                 loss += unweighted_loss / num_d
         return loss * self.loss_weight
+
+
+@LOSS_REGISTRY.register()
+class SSSM_L1Loss(nn.Module):
+    """SSM-based L1 Loss (MAE) with hidden state aggregation.
+
+    Args:
+        weights (list[float]): Importance weights for each hidden state.
+        lambda_weight (float): Overall weight for the semantic consistency loss.
+        reduction (str): Specifies the reduction to apply to the output ('mean' | 'sum').
+        aggregate_fn (str): Specifies how to aggregate hidden states ('mean' | 'max' | 'concat').
+        ssm_config (dict): Configuration for the SSM module.
+    """
+
+    def __init__(self, weights, lambda_weight=1.0, reduction='mean', aggregate_fn='mean'):
+        super(SSSM_L1Loss, self).__init__()
+        self.weights = weights
+        self.lambda_weight = lambda_weight
+        self.reduction = reduction
+        self.aggregate_fn = aggregate_fn
+
+        # Initialize SSM module
+        self.ssm = SS2D(d_model=64)
+
+    def aggregate_states(self, states):
+        """
+        Aggregate hidden states into a single compact representation.
+
+        Args:
+            states (list[Tensor] or Tensor): List of hidden states or a single tensor.
+
+        Returns:
+            Tensor: Aggregated hidden states.
+        """
+        if isinstance(states, torch.Tensor):
+            return states  # Single tensor, no aggregation needed
+        elif isinstance(states, (list, tuple)):
+            if self.aggregate_fn == 'mean':
+                return torch.mean(torch.stack(states, dim=0), dim=0)  # Element-wise mean
+            elif self.aggregate_fn == 'max':
+                return torch.max(torch.stack(states, dim=0), dim=0)[0]  # Element-wise max
+            elif self.aggregate_fn == 'concat':
+                return torch.cat(states, dim=1)  # Concatenate along the channel dimension
+            else:
+                raise ValueError(f"Unsupported aggregation function: {self.aggregate_fn}")
+        else:
+            raise TypeError("`states` must be a list, tuple, or tensor.")
+
+    def forward(self, pred, target, **kwargs):
+        """
+        Compute the SSM-based L1 loss between predicted and target tensors.
+
+        Args:
+            pred (Tensor): Predicted tensor, shape (B, C, H, W).
+            target (Tensor): Ground truth tensor, shape (B, C, H, W).
+
+        Returns:
+            Tensor: The computed loss value.
+        """
+        # Extract hidden states using SSM
+        pred_hidden = self.ssm(pred, **kwargs)
+        target_hidden = self.ssm(target, **kwargs)
+
+        # Aggregate hidden states
+        pred_aggregated = self.aggregate_states(pred_hidden)
+        target_aggregated = self.aggregate_states(target_hidden)
+
+        # Compute L1 loss
+        loss = F.l1_loss(pred_aggregated, target_aggregated, reduction='none')
+
+        # Apply weights to the loss
+        loss = loss * torch.tensor(self.weights, device=loss.device).view(1, -1, 1, 1)
+
+        # Reduce the loss
+        if self.reduction == 'mean':
+            loss = loss.mean()
+        elif self.reduction == 'sum':
+            loss = loss.sum()
+
+        # Scale by lambda_weight
+        return self.lambda_weight * loss
