@@ -41,9 +41,22 @@ python setup.py develop
 ```
 ***You can also refer to this [INSTALL.md](https://github.com/XPixelGroup/BasicSR/blob/master/docs/INSTALL.md) for installation***
 
-## Dataset prepare
+## Dataset Acquisition
+The dataset used in this project can be obtained from the following link:
+[https://github.com/JinyuanLiu-CV/TarDAL]
+Please note that data ownership remains with the original dataset authors. We are grateful for their work and contributions.
+> Dataset Usage
 
-Please check this [page](https://figshare.com/articles/dataset/IRSRMamba_Infrared_Image_Super-Resolution_via_Mamba-based_Wavelet_Transform_Feature_Modulation_Model/25835938).
+For this project, we selected the first 256 samples from the dataset, in sequential order, to form the training dataset for model training.
+>  HR-LR Pair Generation
+
+The process for generating High-Resolution (HR) and Low-Resolution (LR) pairs from the dataset can be referenced in the following script:
+[https://github.com/yongsongH/IRSRMamba/blob/main/bic_dataset.py]
+Please refer to the script for detailed steps on how the HR-LR pairs were processed.
+
+>  Data Ownership
+
+Please ensure you comply with the terms of use and licensing agreements provided by the original dataset authors when using this dataset.
 
 ## Model
 
