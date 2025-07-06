@@ -1,7 +1,7 @@
 # [IRSRMamba](http://arxiv.org/abs/2405.09873)
 Official PyTorch implementation of the paper [IRSRMamba: Infrared Image Super-Resolution via Mamba-based Wavelet Transform Feature Modulation Model.](https://doi.org/10.1109/TGRS.2025.3584385)
 
-#### 🚩Accepted by IEEE TGRS
+#### 🚩Accepted by IEEE TGRS 💡 If you found this helpful, please consider [citing our work](##Citation)! Thank you!
 
 
 ## Introduction
@@ -91,6 +91,20 @@ python basicsr/train.py -opt options/train/train_IRSRMamba_final_x4.yml
 If you meet any problems, please describe them and [contact](https://hyongsong.work/) me. 
 
 **Impolite or anonymous emails are not welcome. There may be some difficulties for me to respond to the email without self-introduce. Thank you for understanding.**
+
+## Citation
+
+```
+@ARTICLE{11059944,
+  author={Huang, Yongsong and Miyazaki, Tomo and Liu, Xiaofeng and Omachi, Shinichiro},
+  journal={IEEE Transactions on Geoscience and Remote Sensing}, 
+  title={IRSRMamba: Infrared Image Super-Resolution via Mamba-based Wavelet Transform Feature Modulation Model}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={1-1},
+  doi={10.1109/TGRS.2025.3584385}}
+```
 
 ## Acknowledgement
 *I would like to express my sincere gratitude to all the authors whose work has contributed to this project. Their insights and contributions have been invaluable. I am also deeply thankful for the positive feedback and constructive assistance received from the editors and reviewers. Their expertise and thoughtful suggestions have significantly improved the quality and clarity of this work.*
