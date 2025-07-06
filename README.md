@@ -43,7 +43,7 @@ python setup.py develop
 
 ## Dataset Acquisition
 The dataset used in this project can be obtained from the following link:
-[https://github.com/JinyuanLiu-CV/TarDAL]
+[JinyuanLiu-CV/TarDAL](https://github.com/JinyuanLiu-CV/TarDAL)
 Please note that data ownership remains with the original dataset authors. We are grateful for their work and contributions.
 > Dataset Usage
 
@@ -51,7 +51,7 @@ For this project, we selected the first 256 samples from the dataset, in sequent
 >  HR-LR Pair Generation
 
 The process for generating High-Resolution (HR) and Low-Resolution (LR) pairs from the dataset can be referenced in the following script:
-[https://github.com/yongsongH/IRSRMamba/blob/main/bic_dataset.py]
+[bic_dataset.py](https://github.com/yongsongH/IRSRMamba/blob/main/bic_dataset.py)
 Please refer to the script for detailed steps on how the HR-LR pairs were processed.
 
 >  Data Ownership
