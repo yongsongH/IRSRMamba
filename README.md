@@ -47,7 +47,7 @@ The dataset used in this project can be obtained from the following link:
 Please note that data ownership remains with the original dataset authors. We are grateful for their work and contributions.
 > Dataset Usage
 
-For this project, we selected the first 256 samples from the dataset, in sequential order, to form the training dataset for model training.
+For this project, we selected the first 265 samples from the dataset, in sequential order, to form the training dataset for model training.
 >  HR-LR Pair Generation
 
 The process for generating High-Resolution (HR) and Low-Resolution (LR) pairs from the dataset can be referenced in the following script:
