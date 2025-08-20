@@ -104,12 +104,13 @@ If you meet any problems, please describe them and [contact](https://hyongsong.w
 @ARTICLE{11059944,
   author={Huang, Yongsong and Miyazaki, Tomo and Liu, Xiaofeng and Omachi, Shinichiro},
   journal={IEEE Transactions on Geoscience and Remote Sensing}, 
-  title={IRSRMamba: Infrared Image Super-Resolution via Mamba-based Wavelet Transform Feature Modulation Model}, 
+  title={IRSRMamba: Infrared Image Super-Resolution via Mamba-Based Wavelet Transform Feature Modulation Model}, 
   year={2025},
-  volume={},
+  volume={63},
   number={},
-  pages={1-1},
+  pages={1-16},
   doi={10.1109/TGRS.2025.3584385}}
+
 ```
 
 ## Acknowledgement
