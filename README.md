@@ -95,9 +95,7 @@ python basicsr/train.py -opt options/train/train_IRSRMamba_final_x4.yml
 
 ## Contact
 
-If you meet any problems, please describe them and [contact](https://hyongsong.work/) me. 
-
-**Impolite or anonymous emails are not welcome. There may be some difficulties for me to respond to the email without self-introduce. Thank you for understanding.**
+For some unpleasant reasons, I will be unable to continue maintaining this code repository. Please feel free to develop a better version according to your needs, in compliance with the license agreement. Some of the resolved issues might be helpful. I sincerely wish you all the best in your research and career.
 
 
 <a id="citation"></a>
