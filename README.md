@@ -2,6 +2,7 @@
 Official PyTorch implementation of the paper [IRSRMamba: Infrared Image Super-Resolution via Mamba-based Wavelet Transform Feature Modulation Model.](https://doi.org/10.1109/TGRS.2025.3584385)
 
 >
+>- **🥱Please note that this code repository will no longer be updated or [maintained.](#contact)**
 >- **🚩Accepted by IEEE TGRS 💡 If you found this helpful, please consider [citing our work](#citation)! Thank you!**
 >- **🍰Stronger Mamba-based model: GPSMamba has been released. 💡 Please refer to: [GPSMamba](https://github.com/yongsongH/GPSMamba).**
 
