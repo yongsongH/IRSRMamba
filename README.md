@@ -24,7 +24,8 @@ Please check [here.](https://github.com/yongsongH/IRSRMamba/blob/3fb448b0efaa5de
 > - Python 3.8, PyTorch >= 1.11
 > - BasicSR 1.4.2
 > - Platforms: Ubuntu 18.04, cuda-11
-
+> - einops `pip install einops`
+> - fvcore `pip install -U fvcore`
 
 
 ## Installation
@@ -43,7 +44,9 @@ pip install -r install.txt
 ```
 python setup.py develop
 ```
-***You can also refer to this [INSTALL.md](https://github.com/XPixelGroup/BasicSR/blob/master/docs/INSTALL.md) for installation***
+***You can refer to [MambaIR](https://github.com/csguoh/MambaIR) for mamab-ssm installation***
+
+
 
 ## Dataset Acquisition
 The dataset used in this project can be obtained from the following link:
